@@ -22,7 +22,7 @@ const Summary = () => {
     if (searchParams.get("canceled")) {
       toast.error("Something went wrong.");
     }
-  }, [searchParams]);
+  }, [searchParams , removeAll]);
 
   const totalPrice = items.reduce((total, item) => {
     return total + Number(item.price);
