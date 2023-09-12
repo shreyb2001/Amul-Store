@@ -32,7 +32,7 @@ const Filter = ({ valueKey, name, data }) => {
       { skipNull: true }
     );
 
-    router.push(url);
+    router.push(url, { scroll: false });
   };
 
   return (
