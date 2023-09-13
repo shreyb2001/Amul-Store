@@ -9,7 +9,7 @@ import Info from "@/components/info";
 const ProductPage = async ({ params }) => {
   const product = await getProduct(params.productId);
   const suggestedProducts = await getProducts({
-    categoryId: product?.categoryId?._id,
+    categoryId: product.categoryId._id,
   });
 
   return (
