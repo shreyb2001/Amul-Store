@@ -27,7 +27,7 @@ const CategoryPage = async ({ params, searchParams }) => {
     <div className="bg-white">
       <Container>
         <Billboard data={category.billboardId} />
-        <div className="lg:grid lg:gri-cols-5 lg:gap-x-8">
+        <div className="lg:grid lg:grid-cols-5 lg:gap-x-8 p-8">
           <MobileFilters sizes={sizes} colors={colors} />
           <div className="hidden lg:block">
             <Filter valueKey="sizeId" name="Sizes" data={sizes} />
