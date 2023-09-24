@@ -13,6 +13,10 @@ const ProductPage = async ({ params }) => {
     categoryId: product.categoryId._id,
   });
 
+  const FilteredSuggestedProducts = suggestedProducts.filter((item) => {
+    if (item._id !== params.productId) return item;
+  });
+
   return (
     <div className="bg-white">
       <Container>
@@ -24,7 +28,10 @@ const ProductPage = async ({ params }) => {
             </div>
           </div>
           <hr className="my-10" />
-          <ProductList title={"Related Items"} items={suggestedProducts} />
+          <ProductList
+            title={"Related Items"}
+            items={FilteredSuggestedProducts}
+          />
         </div>
       </Container>
     </div>
