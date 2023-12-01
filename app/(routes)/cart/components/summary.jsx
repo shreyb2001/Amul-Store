@@ -8,11 +8,14 @@ import { Button } from "@/components/ui/Button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { toast } from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 const Summary = () => {
   const searchParams = useSearchParams();
   const items = useCart((state) => state.items);
   const removeAll = useCart((state) => state.removeAll);
+  const { data } = useSession();
+  console.log(data);
 
   useEffect(() => {
     if (searchParams.get("success")) {
@@ -35,6 +38,7 @@ const Summary = () => {
       {
         productIds: items.map((item) => item._id),
         items,
+        data,
       }
     );
 
@@ -52,7 +56,7 @@ const Summary = () => {
       </div>
       <Button
         onClick={onCheckout}
-        disabled={items.length === 0}
+        disabled={items.length === 0 || data === null}
         className="w-full mt-6"
       >
         Checkout

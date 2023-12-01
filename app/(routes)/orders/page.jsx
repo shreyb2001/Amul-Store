@@ -1,5 +1,8 @@
 import React from "react";
 import OrderCard from "./components/orderCard";
+import getOrderDetail from "@/actions/get-orders";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const fakeOrder = [
   {
@@ -112,10 +115,15 @@ const fakeOrder = [
   },
 ];
 
-const page = () => {
+const page = async () => {
+  const session = await getServerSession(authOptions);
+
+  const orders = await getOrderDetail(session.user.email);
+  console.log(orders);
+
   return (
     <div className="px-12 rounded-xl border max-h-[80%] overflow-y-scroll m-7">
-      {fakeOrder.map((order, key) => (
+      {orders.map((order, key) => (
         <OrderCard order={order} key={key} />
       ))}
     </div>
