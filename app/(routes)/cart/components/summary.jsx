@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/ui/Button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { toast } from "react-hot-toast";
@@ -26,7 +26,7 @@ const Summary = () => {
   }, [searchParams, removeAll]);
 
   const totalPrice = items.reduce((total, item) => {
-    return total + Number(item.price);
+    return total + Number(item.price * item.quantity);
   }, 0);
 
   const onCheckout = async () => {
@@ -34,6 +34,7 @@ const Summary = () => {
       `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
       {
         productIds: items.map((item) => item._id),
+        items,
       }
     );
 

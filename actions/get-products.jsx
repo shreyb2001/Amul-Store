@@ -7,7 +7,6 @@ const getProducts = async (query) => {
   const url = qs.stringifyUrl({
     url: URL,
     query: {
-      colorId: query.colorId,
       sizeId: query.sizeId,
       categoryId: query.categoryId,
       isFeatured: query.isFeatured,

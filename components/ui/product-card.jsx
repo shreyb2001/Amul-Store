@@ -12,7 +12,7 @@ import useCart from "@/hooks/use-cart";
 const ProductCard = ({ data }) => {
   const router = useRouter();
   const previewModal = usePreviewModel();
-  const cart = useCart()
+  const cart = useCart();
 
   const handleClick = () => {
     router.push(`/product/${data?._id}`);
@@ -25,6 +25,7 @@ const ProductCard = ({ data }) => {
 
   const onAddToCart = (e) => {
     e.stopPropagation();
+    console.log(data);
     cart.addItem(data);
   };
 

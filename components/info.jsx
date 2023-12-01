@@ -1,19 +1,37 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 import Currency from "./ui/currency";
 import { ShoppingCart } from "lucide-react";
-import Button from "./ui/Button";
+import { Button } from "./ui/Button";
 import useCart from "@/hooks/use-cart";
 import usePreviewModel from "@/hooks/use-preview-modal";
+import Counter from "./ui/counter";
 
 const Info = ({ data }) => {
   const cart = useCart();
   const previewModal = usePreviewModel();
+  const [quantity, setQuantity] = useState(1);
+  const [disabled, setDisabled] = useState(false);
+
+  const increaseCounter = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const decreaseCounter = () => {
+    if (quantity <= 1) {
+      setQuantity(1);
+      setDisabled(true);
+    } else {
+      setQuantity(quantity - 1);
+    }
+  };
 
   const onAddToCart = (e) => {
+    const updatedData = { quantity, ...data };
     e.stopPropagation();
-    cart.addItem(data);
+    cart.addItem(updatedData);
+    setQuantity(1);
     previewModal.onClose();
   };
 
@@ -32,10 +50,12 @@ const Info = ({ data }) => {
           <div>{data?.sizeId?.name}</div>
         </div>
         <div className="flex items-center gap-x-4">
-          <h3 className="font-semibold text-black">Color: </h3>
-          <div
-            className="h-6 w-6 rounded-full border border-gray-600"
-            style={{ backgroundColor: data?.colorId?.value }}
+          <h3 className="font-semibold text-black">Quantity: </h3>
+          <Counter
+            increaseCounter={increaseCounter}
+            decreaseCounter={decreaseCounter}
+            disabled={disabled}
+            quantity={quantity}
           />
         </div>
       </div>

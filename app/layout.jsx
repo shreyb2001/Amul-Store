@@ -4,6 +4,11 @@ import { Urbanist } from "next/font/google";
 import Navbar from "@/components/navbar";
 import ModalProvider from "@/providers/modal-provider";
 import ToastProvider from "@/providers/toast-provider";
+import AuthProvider from "@/providers/sessionProvider";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+import { ThemeProvider } from "@/providers/theme-provider";
+import { redirect } from "next/navigation";
 
 const font = Urbanist({ subsets: ["latin"] });
 
@@ -12,15 +17,26 @@ export const metadata = {
   description: "Client Store",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const session = await getServerSession(authOptions);
+
   return (
     <html lang="en">
       <body className={font.className}>
-        <ModalProvider />
-        <ToastProvider />
-        <Navbar />
-        {children}
-        <Footer />
+        <AuthProvider session={session}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ModalProvider />
+            <ToastProvider />
+            <Navbar session={session} />
+            {children}
+            <Footer />
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

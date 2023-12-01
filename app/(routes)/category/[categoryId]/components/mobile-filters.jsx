@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/ui/Button";
 import { useState } from "react";
 import { Plus, X } from "lucide-react";
 import { Dialog } from "@headlessui/react";
@@ -39,7 +39,6 @@ const MobileFilters = ({ sizes, colors }) => {
 
             <div className="p-4">
               <Filter valueKey="sizeId" name="Sizes" data={sizes} />
-              <Filter valueKey="colorId" name="Colors" data={colors} />
             </div>
           </Dialog.Panel>
         </div>

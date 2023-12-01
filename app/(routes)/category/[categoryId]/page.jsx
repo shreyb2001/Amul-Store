@@ -15,12 +15,10 @@ export const revalidate = 0;
 const CategoryPage = async ({ params, searchParams }) => {
   const products = await getProducts({
     categoryId: params.categoryId,
-    colorId: searchParams.colorId,
     sizeId: searchParams.sizeId,
   });
 
   const sizes = await getSizes();
-  const colors = await getColors();
   const category = await getCategory(params.categoryId);
 
   return (
@@ -28,10 +26,9 @@ const CategoryPage = async ({ params, searchParams }) => {
       <Container>
         <Billboard data={category.billboardId} />
         <div className="lg:grid lg:grid-cols-5 lg:gap-x-8 p-8">
-          <MobileFilters sizes={sizes} colors={colors} />
+          <MobileFilters sizes={sizes} />
           <div className="hidden lg:block">
             <Filter valueKey="sizeId" name="Sizes" data={sizes} />
-            <Filter valueKey="colorId" name="Colors" data={colors} />
           </div>
           <div className="mt-6 lg:col-span-4 lg:mt-8">
             {products.length === 0 && <NoResults />}

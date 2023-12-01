@@ -5,12 +5,30 @@ import { X } from "lucide-react";
 import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
+import Counter from "@/components/ui/counter";
+import { useState } from "react";
 
 const CartItem = ({ data }) => {
   const cart = useCart();
+  const [quantity, setQuantity] = useState(data.quantity);
+  const [disabled, setDisabled] = useState(false);
+
+  const increaseCounter = () => {
+    setQuantity(quantity + 1);
+    cart.increaseCount(data._id);
+  };
 
   const onRemove = () => {
     cart.removeItem(data._id);
+  };
+
+  const decreaseCounter = () => {
+    if (quantity <= 1) {
+      onRemove();
+      setDisabled(true);
+    } else {
+      setQuantity(quantity - 1);
+    }
   };
 
   return (
@@ -33,12 +51,17 @@ const CartItem = ({ data }) => {
           </div>
 
           <div className="mt-1 flex text-sm">
-            <p className="text-gray-500">{data.colorId.name}</p>
+            <Counter
+              increaseCounter={increaseCounter}
+              decreaseCounter={decreaseCounter}
+              disabled={disabled}
+              quantity={quantity}
+            />
             <p className="ml-4 border-l border-gray-200 pl-4 text-gray-500">
               {data.sizeId.name}
             </p>
           </div>
-          <Currency value={data.price} />
+          <Currency value={data.price * quantity} />
         </div>
       </div>
     </li>
