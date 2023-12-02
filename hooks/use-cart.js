@@ -24,12 +24,12 @@ const useCart = create(
       removeAll: () => set({ items: [] }),
       increaseCount: (id) => {
         const currentItems = get().items;
-        const updatedItems = currentItems.filter((item) => item._id !== id);
         const item = currentItems.find((item) => id === item._id);
-        const quantity = item.quantity + 1;
-        const updatedItem = { ...item, quantity };
-  
-        set({ items: [...updatedItems, updatedItem] });
+        const index = currentItems.findIndex((item) => item._id === id);
+        item.quantity = item.quantity + 1;
+        currentItems.splice(index, 1, item);
+
+        set({ items: currentItems });
       },
     }),
     {

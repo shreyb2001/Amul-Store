@@ -15,7 +15,6 @@ const Summary = () => {
   const items = useCart((state) => state.items);
   const removeAll = useCart((state) => state.removeAll);
   const { data } = useSession();
-  console.log(data);
 
   useEffect(() => {
     if (searchParams.get("success")) {
@@ -59,7 +58,7 @@ const Summary = () => {
         disabled={items.length === 0 || data === null}
         className="w-full mt-6"
       >
-        Checkout
+        {data === null ? "Kindly login first" : "Checkout"}
       </Button>
     </div>
   );

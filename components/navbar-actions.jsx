@@ -23,7 +23,6 @@ import { useTheme } from "next-themes";
 const NavbarActions = ({ session }) => {
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
-  const { setTheme } = useTheme();
 
   useEffect(() => {
     setIsMounted(true);
@@ -37,10 +36,10 @@ const NavbarActions = ({ session }) => {
     <div className="ml-auto flex items-center gap-x-4">
       <Button
         onClick={() => router.push(`/cart`)}
-        className="flex items-start rounded-full bg-black px-4 py-2"
+        className="flex justify-center items-start rounded-md px-4 gap-2 "
       >
         <ShoppingBag size={20} color="white" />
-        <span className="ml-2 text-sm font-medium text-white">
+        <span className="text-md font-medium text-white pt-[0.120rem]">
           {cart.items.length}
         </span>
       </Button>
@@ -61,9 +60,6 @@ const NavbarActions = ({ session }) => {
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => router.push("/orders")}>
                 Orders
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("light")}>
-                Theme Toggle
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

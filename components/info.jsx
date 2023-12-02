@@ -28,9 +28,9 @@ const Info = ({ data }) => {
   };
 
   const onAddToCart = (e) => {
-    const updatedData = { quantity, ...data };
+    data.quantity = quantity
     e.stopPropagation();
-    cart.addItem(updatedData);
+    cart.addItem(data);
     setQuantity(1);
     previewModal.onClose();
   };

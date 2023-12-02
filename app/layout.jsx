@@ -24,18 +24,11 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={font.className}>
         <AuthProvider session={session}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <ModalProvider />
-            <ToastProvider />
-            <Navbar session={session} />
-            {children}
-            <Footer />
-          </ThemeProvider>
+          <ModalProvider />
+          <ToastProvider />
+          <Navbar session={session} />
+          {children}
+          <Footer />
         </AuthProvider>
       </body>
     </html>

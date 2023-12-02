@@ -2,9 +2,14 @@ import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
 const Profile = async () => {
   const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return redirect("/");
+  }
 
   return (
     <section className="p-16">
