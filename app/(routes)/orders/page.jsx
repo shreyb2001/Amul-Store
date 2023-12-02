@@ -13,6 +13,14 @@ const page = async () => {
   }
   const orders = await getOrderDetail(session?.user?.email);
 
+  if (orders.length === 0) {
+    return (
+      <div className="px-12 rounded-xl border max-h-[80%] m-7">
+        <p className="text-2xl font-semibold text-center p-4">You have no past orders!</p>
+      </div>
+    );
+  }
+
   return (
     <div className="px-12 rounded-xl border max-h-[80%] m-7">
       {orders.map((order, key) => (
