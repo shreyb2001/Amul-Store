@@ -12,10 +12,18 @@ const CartItem = ({ data }) => {
   const cart = useCart();
   const [quantity, setQuantity] = useState(data.quantity);
   const [disabled, setDisabled] = useState(false);
+  const [increaseDisabled, setIncreaseDisabled] = useState(false);
+  const [decreaseDisabled, setDecreaseDisabled] = useState(false);
 
   const increaseCounter = () => {
-    setQuantity(quantity + 1);
-    cart.increaseCount(data._id);
+    if (quantity >= data.stock) {
+      setIncreaseDisabled(true);
+      toast.error(`Only ${data.stock} products is available in stock`);
+    } else {
+      setDecreaseDisabled(false);
+      setQuantity(quantity + 1);
+      cart.increaseCount(data._id);
+    }
   };
 
   const onRemove = () => {
@@ -24,9 +32,11 @@ const CartItem = ({ data }) => {
 
   const decreaseCounter = () => {
     if (quantity <= 1) {
+      setQuantity(1);
+      setDecreaseDisabled(true);
       onRemove();
-      setDisabled(true);
     } else {
+      setIncreaseDisabled(false);
       setQuantity(quantity - 1);
     }
   };
@@ -55,6 +65,8 @@ const CartItem = ({ data }) => {
               increaseCounter={increaseCounter}
               decreaseCounter={decreaseCounter}
               disabled={disabled}
+              increaseDisabled={increaseDisabled}
+              decreaseDisabled={decreaseDisabled}
               quantity={quantity}
             />
             <p className="ml-4 border-l border-gray-200 pl-4 text-gray-500">

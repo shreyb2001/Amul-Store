@@ -48,8 +48,9 @@ const ProductCard = ({ data }) => {
               icon={<Expand size={20} className="text-gray-600" />}
             />
             <IconButton
+              disabled={data.stock === 0 ? "true" : "false"}
               onClick={onAddToCart}
-              icon={<ShoppingCart size={20} className="text-gray-600" />}
+              icon={<ShoppingCart size={20} className="text-gray-600" />} 
             />
           </div>
         </div>
@@ -60,6 +61,15 @@ const ProductCard = ({ data }) => {
       </div>
       <div className="flex items-center justify-between">
         <Currency value={data?.price} />
+      </div>
+      <div className="flex items-center justify-between">
+        <p
+          className={`${
+            data.stock > 0 ? "text-green-500" : "text-red-500"
+          } font-bold`}
+        >
+          {data.stock > 0 ? "Available" : "Out of stock"}
+        </p>
       </div>
     </div>
   );
