@@ -3,13 +3,13 @@ import Image from "next/image";
 import React from "react";
 
 const OrderCard = ({ order }) => {
-  const totalPrice = order.items.reduce((total, item) => {
+  const totalPrice = order.orderItems.reduce((total, item) => {
     return total + Number(item.price * item.quantity);
   }, 0);
   return (
     <div className="border rounded-md p-8 my-4 flex flex-col gap-4 text-xl font-bold">
       <p>Order ID : {order._id}</p>
-      {order.items.map((item, key) => (
+      {order.orderItems.map((item, key) => (
         <div key={key} className="flex items-center gap-4">
           <Image
             src={item?.images[0].url}
