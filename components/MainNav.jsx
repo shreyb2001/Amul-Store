@@ -13,6 +13,7 @@ const MainNav = ({ data }) => {
     label: route.name,
     active: pathname === `/category/${route._id}`,
   }));
+
   return (
     <div className="mx-6 flex items-center space-x-4 lg:space-x-6">
       {routes.map((route) => (
@@ -20,8 +21,8 @@ const MainNav = ({ data }) => {
           key={route.href}
           href={route.href}
           className={cn(
-            "text-sm font-medium transition-colors hover:text-black",
-            route.active ? "text-black" : "text-neutral-500"
+            "text-sm font-semibold transition-colors hover:text-black",
+            route.active ? "text-black" : "text-neutral-400"
           )}
         >
           {route.label}

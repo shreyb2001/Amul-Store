@@ -17,8 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { useTheme } from "next-themes";
+import { signIn, signOut } from "next-auth/react";
 
 const NavbarActions = ({ session }) => {
   const [isMounted, setIsMounted] = useState(false);

@@ -15,6 +15,7 @@ const Info = ({ data }) => {
   const [disabled, setDisabled] = useState(false);
 
   const increaseCounter = () => {
+    setDisabled(false);
     setQuantity(quantity + 1);
   };
 
@@ -28,7 +29,7 @@ const Info = ({ data }) => {
   };
 
   const onAddToCart = (e) => {
-    data.quantity = quantity
+    data.quantity = quantity;
     e.stopPropagation();
     cart.addItem(data);
     setQuantity(1);

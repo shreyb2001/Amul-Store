@@ -7,17 +7,15 @@ const OrderCard = ({ order }) => {
     return total + Number(item.price * item.quantity);
   }, 0);
   return (
-    <div className="border rounded-md p-8 my-4 flex flex-col gap-4 text-xl">
-      <p>
-        <span className="font-semibold">Order ID</span> : {order._id}
-      </p>
+    <div className="border rounded-md p-8 my-4 flex flex-col gap-4 text-xl font-bold">
+      <p>Order ID : {order._id}</p>
       {order.items.map((item, key) => (
-        <div key={key} className="flex gap-4">
+        <div key={key} className="flex items-center gap-4">
           <Image
             src={item?.images[0].url}
             height={100}
             width={100}
-            className="rounded-md"
+            className="rounded-md border shadow-lg"
           />
           <div className="text-lg py-2">
             <p>Item name : {item?.name}</p>
