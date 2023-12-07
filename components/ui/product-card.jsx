@@ -8,6 +8,7 @@ import Currency from "./currency";
 import { useRouter } from "next/navigation";
 import usePreviewModel from "@/hooks/use-preview-modal";
 import useCart from "@/hooks/use-cart";
+import toast from "react-hot-toast";
 
 const ProductCard = ({ data }) => {
   const router = useRouter();
@@ -26,7 +27,12 @@ const ProductCard = ({ data }) => {
   const onAddToCart = (e) => {
     e.stopPropagation();
     console.log(data);
-    cart.addItem(data);
+    if (data.stock <= 0) {
+      toast.error("Item out of stock");
+      return;
+    } else {
+      cart.addItem(data);
+    }
   };
 
   return (
@@ -48,9 +54,8 @@ const ProductCard = ({ data }) => {
               icon={<Expand size={20} className="text-gray-600" />}
             />
             <IconButton
-              disabled={data.stock === 0 ? "true" : "false"}
               onClick={onAddToCart}
-              icon={<ShoppingCart size={20} className="text-gray-600" />} 
+              icon={<ShoppingCart size={20} className="text-gray-600" />}
             />
           </div>
         </div>
